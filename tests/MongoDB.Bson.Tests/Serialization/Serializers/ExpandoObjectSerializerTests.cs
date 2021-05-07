@@ -50,7 +50,17 @@ namespace MongoDB.Bson.Tests.Serialization
             var rehydrated = BsonSerializer.Deserialize<ExpandoObject>(bson);
             Assert.True(bson.SequenceEqual((rehydrated).ToBson()));
         }
+        [Fact]
+        public void TestNull()
+        {
+            var json = ((ExpandoObject)null).ToJson();
+            var expected = "{ }";
+            Assert.Equal(expected, json);
 
+            var bson = ((ExpandoObject)null).ToBson();
+            var rehydrated = BsonSerializer.Deserialize<ExpandoObject>(bson);
+            Assert.True(bson.SequenceEqual((rehydrated).ToBson()));
+        }
 #if NET452
         [Fact]
         public void TestDeserializingDiscriminatedVersion()
